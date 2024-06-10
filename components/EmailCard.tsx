@@ -11,12 +11,27 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import EmailFullDisplay from "./EmailFullDisplay";
 import formatDate from "@/utils/formatDate";
+import { Badge } from "./ui/badge";
 
 const EmailCard = ({
   item,
   mailSelected,
   handleMailSelect,
 }: EmailCardTypes) => {
+  const badgeColor = item.label.toLowerCase().includes("important")
+    ? "bg-green-500"
+    : item.label.toLowerCase().includes("promotions")
+    ? "bg-yellow-500"
+    : item.label.toLowerCase().includes("social")
+    ? "bg-blue-500"
+    : item.label.toLowerCase().includes("marketing")
+    ? "bg-red-500"
+    : item.label.toLowerCase().includes("spam")
+    ? "bg-gray-500"
+    : item.label.toLowerCase().includes("general")
+    ? "bg-purple-500"
+    : "bg-gray-300";
+
   return (
     <Sheet key={item.id}>
       <SheetTrigger asChild>
@@ -42,18 +57,8 @@ const EmailCard = ({
                   mailSelected === item.id ? "text-cream/80" : "text-zeus"
                 )}
               >
-                {/* {item.labels.length ? (
-                          <div className="flex items-center gap-2">
-                            {item.labels.map((label) => (
-                              <Badge
-                                key={label}
-                                variant={getBadgeVariantFromLabel(label)}
-                              >
-                                {label}
-                              </Badge>
-                            ))}
-                          </div>
-                        ) : null} */}
+                <Badge className={badgeColor}>{item.label}</Badge>
+
                 {formatDate(item.date)}
               </div>
             </div>
@@ -73,7 +78,7 @@ const EmailCard = ({
         <SheetHeader>
           <SheetTitle>{item.subject}</SheetTitle>
         </SheetHeader>
-        <EmailFullDisplay mail={item} />
+        <EmailFullDisplay mail={item} badgeColor={badgeColor} />
         <SheetClose asChild>
           <Button type="button">Close</Button>
         </SheetClose>

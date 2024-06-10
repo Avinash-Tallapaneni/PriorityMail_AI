@@ -22,12 +22,14 @@ import { ScrollArea } from "./ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Textarea } from "./ui/textarea";
 import formatDate from "@/utils/formatDate";
+import { Badge } from "./ui/badge";
 
 interface EmailFullDisplayProps {
   mail: CleanedEmailType;
+  badgeColor: string;
 }
 
-const EmailFullDisplay = ({ mail }: EmailFullDisplayProps) => {
+const EmailFullDisplay = ({ mail, badgeColor }: EmailFullDisplayProps) => {
   return (
     <ScrollArea className="h-screen   ">
       <div className="flex h-full flex-col flex-1 font-bold">
@@ -92,6 +94,7 @@ const EmailFullDisplay = ({ mail }: EmailFullDisplayProps) => {
             </Tooltip>
           </div>
           <Separator orientation="vertical" className="mx-2 h-6 bg-zeus/20" />
+          <Badge className={badgeColor}>{mail.label}</Badge>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

@@ -10,18 +10,28 @@ export const setOAuthCredentials = ({
   accessToken,
   refreshToken,
 }: GoogleInstanceToken) => {
-  oauth2Client.setCredentials({
-    access_token: accessToken,
-    refresh_token: refreshToken,
-  });
+  try {
+    oauth2Client.setCredentials({
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    });
+  } catch (error) {
+    console.error("Error setting OAuth credentials:", error);
+    throw new Error("Failed to set OAuth credentials");
+  }
 };
 
 export const getGmailInstance = () => {
-  if (!oauth2Client) {
-    throw new Error(
-      "OAuth credentials not set. Call setOAuthCredentials first."
-    );
-  }
+  try {
+    if (!oauth2Client) {
+      throw new Error(
+        "OAuth credentials not set. Call setOAuthCredentials first."
+      );
+    }
 
-  return google.gmail({ version: "v1", auth: oauth2Client });
+    return google.gmail({ version: "v1", auth: oauth2Client });
+  } catch (error) {
+    console.error("Error getting Gmail instance:", error);
+    throw new Error("Failed to get Gmail instance");
+  }
 };

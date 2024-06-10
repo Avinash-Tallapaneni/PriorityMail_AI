@@ -14,7 +14,7 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Separator } from "./ui/separator";
-import { googleSignIn } from "@/actions/signInaction";
+import { googleSignIn } from "@/actions/signInAction";
 
 const Login = () => {
   const handleAPI = (e: React.ChangeEvent<HTMLInputElement>) => {

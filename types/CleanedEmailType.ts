@@ -5,4 +5,5 @@ export interface CleanedEmailType {
   subject: string;
   text: string;
   date: string;
+  label: string;
 }
