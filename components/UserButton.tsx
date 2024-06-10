@@ -31,7 +31,7 @@ const UserButton = ({ user }: UserButtonProps) => {
             alt="User profile picture"
             width={50}
             height={50}
-            className="aspect-square rounded-lg bg-background object-cover"
+            className="aspect-square rounded-md bg-background object-cover"
           />
         </Button>
       </DropdownMenuTrigger>

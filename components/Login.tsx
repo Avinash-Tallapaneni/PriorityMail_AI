@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Google from "../assets/google.png";
 import { Button } from "./ui/button";
+import Google from "../assets/google.png";
 import {
   Card,
   CardContent,
@@ -14,6 +14,7 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Separator } from "./ui/separator";
+import { googleSignIn } from "@/actions/signInaction";
 
 const Login = () => {
   const handleAPI = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,10 +44,12 @@ const Login = () => {
         </CardContent>
 
         <CardFooter>
-          <Button variant="outline" className="w-full gap-2">
-            <Image src={Google} alt="Google Icon" className="w-6 h-6" />
-            Google
-          </Button>
+          <form action={googleSignIn} className="w-full">
+            <Button variant="outline" className="w-full gap-2">
+              <Image src={Google} alt="Google Icon" className="w-6 h-6" />
+              Google
+            </Button>
+          </form>
         </CardFooter>
       </Card>
     </div>
