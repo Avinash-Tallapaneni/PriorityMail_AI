@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# PriorityMail AI
 
-First, run the development server:
+PriorityMail is a sophisticated web application designed to enhance your Gmail experience by intelligently prioritizing and categorizing your emails. Powered by the advanced capabilities of Gemini AI, PriorityMail offers a seamless solution for managing your inbox.
+
+
+## Features
+
+- **Secure Authentication**: Utilizes NextAuth to securely authenticate users through their Google accounts.
+- **Email Prioritization**: Fetches emails from Gmail API and employs Gemini AI to intelligently prioritize them based on relevance and importance.
+- **Efficient Tagging**: Tags emails with relevant labels to aid in quick identification and organization.
+- **API Key Management**: Allows users to securely store their API keys in local storage for easy access and management.
+
+
+## Tech Stack
+
+**Client:** Next.js, ShadCN UI components, TailwindCSS, TypeScript
+
+**Authentication:** NextAuth(V5)
+
+**APIs/AI:** Gmail API, Gemini AI
+
+## Screenshot
+
+
+## Run Locally
+
+Clone the project
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone https://github.com/Avinash-Tallapaneni/PriorityMail_AI.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Go to the project directory
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+  cd PriorityMail_AI
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Install dependencies
 
-## Learn More
+```bash
+  npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+Start the server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+  npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Environment Variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To run this project, you will need to add the following environment variables to your .env file
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+`AUTH_SECRET=**************************`
+`AUTH_GOOGLE_ID**************************apps.googleusercontent.com`
+`AUTH_GOOGLE_SECRET**************************`  
+`NEXTAUTH_URL="http://localhost:3000"`
+
+
+
+## Author
+
+My name is Avinash Tallapaneni, and I am a front-end web developer. I am passionate about coding and building applications that make a difference in people's lives.
+
+- Website - [Preview site on vercel](https://prioritymail.vercel.app/)
+- Twitter - [@TallapaneniAvi](https://www.twitter.com/TallapaneniAvi)
+
+## Got feedback?
+
+i love receiving feedback! So if you have anything you'd like to mention, please email avinashtallapaneni[at]gmail[dot]com or message me on socials
