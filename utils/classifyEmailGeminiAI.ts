@@ -1,11 +1,11 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-async function classifyEmailGeminiAI(bodyContent: string) {
-  const GEMINI_KEY = process.env.NEXT_PUBLIC_GEMINI_KEY;
+async function classifyEmailGeminiAI(bodyContent: string, GEMINI_KEY: string) {
+  // const GEMINI_KEY = process.env.NEXT_PUBLIC_GEMINI_KEY;
 
-  if (!GEMINI_KEY) {
-    throw new Error("GEMINI_KEY is not set in the environment variables");
-  }
+  // if (!GEMINI_KEY) {
+  //   throw new Error("GEMINI_KEY is not set in the environment variables");
+  // }
 
   const googleAI = new GoogleGenerativeAI(GEMINI_KEY);
 
@@ -25,7 +25,6 @@ async function classifyEmailGeminiAI(bodyContent: string) {
   const result = await geminiModel.generateContent(prompt);
   const response = result.response;
   const text = response.text();
-  console.log(text);
   return text;
 }
 

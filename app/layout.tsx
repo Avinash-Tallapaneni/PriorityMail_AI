@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Kode_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
+import { ApiKeyProvider } from "@/context/APIContext";
 
 const Kode = Kode_Mono({
   subsets: ["latin"],
@@ -18,7 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={Kode.className}>{children}</body>
+      <body className={Kode.className}>
+        <ApiKeyProvider>{children}</ApiKeyProvider>
+        <Toaster />
+      </body>
     </html>
   );
 }

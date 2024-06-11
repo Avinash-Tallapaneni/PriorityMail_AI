@@ -1,13 +1,19 @@
 import { auth } from "@/config/auth";
 import { CleanedEmailType } from "@/types/CleanedEmailType";
 import { EmailMessagesType } from "@/types/EmailMessageType";
-import classifyEmailGeminiAI from "@/utils/GeminiAI";
+import classifyEmailGeminiAI from "@/utils/classifyEmailGeminiAI";
 import formatEmailData from "@/utils/formatEmailData";
 import getMessageById from "@/utils/getMessageById";
 import { getGmailInstance, setOAuthCredentials } from "@/utils/gmailInstance";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req: any) {
+  const url = new URL(req.url);
+  const searchParams = new URLSearchParams(url.searchParams);
+  const maxEmailResults = searchParams.get("maxEmailResults") as string;
+  const GEMINI_KEY = searchParams.get("GEMINI_KEY") as string;
+  console.log("maxEmailResults", maxEmailResults);
+
   try {
     const session = await auth();
 
@@ -28,7 +34,7 @@ export async function GET() {
 
     const response = await gmail.users.messages.list({
       userId: "me",
-      maxResults: 2,
+      maxResults: parseInt(maxEmailResults),
     });
 
     const emailMessageSummaries = response.data.messages as EmailMessagesType[];
@@ -40,7 +46,10 @@ export async function GET() {
     const classifiedEmails: CleanedEmailType[] = await Promise.all(
       detailedEmailDataArray.map(async (emailData) => {
         const formattedEmail = formatEmailData(emailData);
-        const label = await classifyEmailGeminiAI(formattedEmail.text);
+        const label = await classifyEmailGeminiAI(
+          formattedEmail.text,
+          GEMINI_KEY
+        );
         console.log("label", label);
         return { ...formattedEmail, label };
       })

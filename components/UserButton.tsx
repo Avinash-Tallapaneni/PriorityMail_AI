@@ -16,12 +16,14 @@ import Image from "next/image";
 
 import Avatar from "../assets/avatar.png";
 import Logoff from "./Logoff";
+import ChangeAPI from "./ChangeAPI";
 
 interface UserButtonProps {
   user: User;
 }
 
 const UserButton = ({ user }: UserButtonProps) => {
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -38,10 +40,8 @@ const UserButton = ({ user }: UserButtonProps) => {
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer">
-          <Keyboard className="mr-2 h-4 w-4 " />
-          <span>ChatGPT APIKEY</span>
-          <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
+        <DropdownMenuItem className="cursor-pointer p-0">
+          <ChangeAPI />
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild className="cursor-pointer p-0">

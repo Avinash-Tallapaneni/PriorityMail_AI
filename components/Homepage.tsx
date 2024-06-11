@@ -13,29 +13,45 @@ import {
 } from "./ui/select";
 import { Separator } from "./ui/separator";
 import EmailCard from "./EmailCard";
+import { SkeletonCard } from "./Skeleton";
 
 const Homepage = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [numOfMails, setNumOfMails] = useState<string>("2");
   const [mails, setMails] = useState<CleanedEmailType[] | null>([]);
   const [mailSelected, setMailSelected] = useState<string>("");
+  const [GEMINI_KEY, setGEMINI_KEY] = useState<string>("");
+  const [classifyClicked, setClassifyClicked] = useState(false);
 
   const classifyEmails = async () => {
-    const response = await fetch("/api/email");
+    setIsLoading(true);
+    setClassifyClicked(true);
+    const response = await fetch(
+      `/api/email?maxEmailResults=${numOfMails}&GEMINI_KEY=${GEMINI_KEY}`
+    );
     const data = await response.json();
     setMails(data.email);
+    setIsLoading(false);
+    setClassifyClicked(false);
     localStorage.setItem("mails", JSON.stringify(data.email));
 
     console.log("emails", data.email);
   };
+  console.log("numOfMails", numOfMails);
 
   useEffect(() => {
     const storedMails = localStorage.getItem("mails");
+    const geminiKey = localStorage.getItem("GeminiAI") as string;
+
+    setGEMINI_KEY(geminiKey);
 
     if (!storedMails) {
-      classifyEmails();
+      // classifyEmails();
     }
 
     if (storedMails) {
       setMails(JSON.parse(storedMails));
+      setIsLoading(false);
     }
   }, []);
 
@@ -45,6 +61,32 @@ const Homepage = () => {
   //   }
   // }, [mails]);
 
+  const renderEmails = () => {
+    if (mails?.length === 0 && !classifyClicked) {
+      return (
+        <div className="text-xl pt-10 p-6">
+          Select number of email to classify and then click on classify. If none
+          selected, 2 Emails are classified
+        </div>
+      );
+    }
+
+    if (isLoading) {
+      return Array(parseInt(numOfMails))
+        .fill(0)
+        .map((_, index) => <SkeletonCard key={index} />);
+    }
+
+    return mails?.map((mail) => (
+      <EmailCard
+        key={mail.id}
+        item={mail}
+        mailSelected={mailSelected}
+        handleMailSelect={(id) => setMailSelected(id)}
+      />
+    ));
+  };
+
   return (
     <TooltipProvider>
       <section className="text-zeus flex-1 flex items-start justify-center h-full  ">
@@ -52,8 +94,12 @@ const Homepage = () => {
           <div className="flex flex-col items-start p-3 gap-4 w-full">
             <div className="flex items-center w-full justify-between">
               <div>
-                <Select>
-                  <SelectTrigger className="">
+                <Select
+                  onValueChange={(value: string) => {
+                    setNumOfMails(value);
+                  }}
+                >
+                  <SelectTrigger>
                     <SelectValue placeholder="Select number of email to classify" />
                   </SelectTrigger>
                   <SelectContent>
@@ -73,15 +119,8 @@ const Homepage = () => {
             </div>
           </div>
           <Separator className="bg-zeus" />
-          <section>
-            {mails?.map((mail) => (
-              <EmailCard
-                key={mail.id}
-                item={mail}
-                mailSelected={mailSelected}
-                handleMailSelect={(id) => setMailSelected(id)}
-              />
-            ))}
+          <section className="w-full h-screen overflow-scroll flex flex-col gap-2">
+            {renderEmails()}
           </section>
         </section>
       </section>
