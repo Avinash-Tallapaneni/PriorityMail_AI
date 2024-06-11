@@ -20,7 +20,8 @@ PriorityMail is a sophisticated web application designed to enhance your Gmail e
 
 **APIs/AI:** Gmail API, Gemini AI
 
-## Screenshot
+## Demo
+![Product Demo](https://github.com/Avinash-Tallapaneni/PriorityMail_AI/blob/main/assets/demo.gif)
 
 
 ## Run Locally
@@ -55,6 +56,7 @@ Start the server
 To run this project, you will need to add the following environment variables to your .env file
 
 `AUTH_SECRET=**************************`
+
 `AUTH_GOOGLE_ID**************************apps.googleusercontent.com`
 `AUTH_GOOGLE_SECRET**************************`  
 `NEXTAUTH_URL="http://localhost:3000"`
