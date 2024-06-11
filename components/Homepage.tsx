@@ -37,7 +37,6 @@ const Homepage = () => {
 
     console.log("emails", data.email);
   };
-  console.log("numOfMails", numOfMails);
 
   useEffect(() => {
     const storedMails = localStorage.getItem("mails");

@@ -12,7 +12,6 @@ export async function GET(req: any) {
   const searchParams = new URLSearchParams(url.searchParams);
   const maxEmailResults = searchParams.get("maxEmailResults") as string;
   const GEMINI_KEY = searchParams.get("GEMINI_KEY") as string;
-  console.log("maxEmailResults", maxEmailResults);
 
   try {
     const session = await auth();
